@@ -24,6 +24,10 @@ General Elements on this Page
     .pte-space
         width: 100%
         height: pte-space-height
+        svg 
+            // background-color rgba(100, 255, 100, 0.2)
+            height 100%
+            width 100%
     .vib-space
         width: 100%
         height vib-space-height
@@ -39,6 +43,11 @@ General Elements on this Page
         border: none
     .top-section
         padding 20px
+        button
+            background-color #aaa
+            padding 3px
+            border-radius 5px
+            margin 0 20px
     .top-section:nth-child(2n)
         background-color: light-blue
 
@@ -123,54 +132,32 @@ Section to define Minimum and Maximum Temperature
     #min-max-define-section
         display flex
         justify-content: space-around
+
 /*==============================================================================
-Section for the program buttons style
+Section to define Duration of the Program
 ==============================================================================*/
-button-stroke-color = rgba(0, 167, 206, 1)
+    #duration-section
+        display: flex
+        justify-content: space-between
+        align-items: center
+        width: 500px
 
-button-diag-vw-factor = 0.3566 /* = 53.5/150 */
-button-diag = (800px * button-diag-vw-factor)
-// programbutton relative factors
-button-text-height-factor = 0.1402 /* = 7.5/53.5 */
-button-border-width-factor = 0.003846 /* = 1/260 */
-button-border-shadow-factor = 0.053846, /* = 14/260 */
-button-text-y-gap-factor = 0.16923 /* = 44/260 */
-
-button.programbutton
-    margin 20px
-    background-size cover
-    background-position center
-    overflow hidden
-    white-space: nowrap
-    position relative
-    background-color white
-    box-shadow 0 0 button-diag * button-border-shadow-factor #000
-    border-radius 50%
-    border-width button-diag * button-border-width-factor
-    border-style solid 
-    border-color button-stroke-color
-    height button-diag
-    width button-diag
-    display block
-    .button-text
-        pointer-events none
-        font-family "Aurox_CRS"
-        font-size button-diag * button-text-height-factor
-        color button-stroke-color
-        position absolute
-        bottom button-diag * button-text-y-gap-factor
-        left 50%
-        transform translate(-50%, 0)
-    .button-svg-container
-        height 100%
-        width 100%
-        padding 0
-        border none
-        margin 0
-        pointer-events: none
-        svg 
-            height 100%
-            width 100%
-            padding 0
-            border none
-            margin 0
+/*==============================================================================
+Program Data Container
+==============================================================================*/
+    #program-data-container
+        position relative
+/*==============================================================================
+Buffer Table Container
+==============================================================================*/
+    #buffer-table-container
+        width: 100%
+        margin: 0
+        padding: 0
+        overflow-x scroll
+        table
+            margin: 5px
+            box-sizing border-box
+            td
+                padding: 5px
+                cursor pointer

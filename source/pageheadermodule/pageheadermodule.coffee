@@ -45,15 +45,31 @@ pageheadermodule.setStateNoUnsavedChanges = ->
     saveButton.disabled = true
     discardButton.disabled = true
 
+
+pageheadermodule.applyLoginSuccess = () ->
+    log "applyLoginSuccess"
+    setStateLoggedIn()
+    allModules.datahandlermodule.retrieveAllData()
+
+pageheadermodule.applyLoginFail = () ->
+    log "applyLoginFail"
+    setStateNotLoggedIn()
+
+pageheadermodule.communicationFail = (error) ->
+    log "communication to the Server has failed!"
+    log error
+    pageheadermodule.applyLoginFail()
+
 #endregion
 
 #region internal functions
 startLogIn = ->
-	password = passwordInput.value if passwordInput
-	console.log password
-	data =
-		secret: password
-	allModules.networkmodule.requestBackendService "login", data, loginResponse, communicationFail
+    password = passwordInput.value if passwordInput
+    log password
+    data =
+        secret: password
+
+    allModules.websocketmodule.attemptLogin(data)
 
 passwordKeyPressed = (evt) ->
 	loginButtonClicked() if evt.keyCode == 13
@@ -64,8 +80,7 @@ saveButtonClicked = ->
 
 discardButtonClicked = ->
     log "discardButtonClicked"
-    allModules.datahandlermodule.retrieveData()
-    allModules.networkmodule.requestBackendService "discardUploads", null, discardResponse, communicationFail
+    allModules.datahandlermodule.discardChanges()
 
 loginButtonClicked = ->
     switch AppVars.loginState
@@ -73,35 +88,8 @@ loginButtonClicked = ->
         when "typing" then startLogIn()
         when "loggedin" then setStateNotLoggedIn()
         else
-            console.log "we had weird state: " + AppVars.loginState
+            log "we had weird state: " + AppVars.loginState
     return
-
-communicationFail = (error) ->
-    console.log "communication to the Server has failed!"
-    console.log error
-    applyLoginFail()
-
-discardResponse = (response) ->
-    console.log "discardResponse"
-    console.log response
-    allModules.maincontentmodule.clearFileUpload()
-	
-
-loginResponse = (response) ->
-	console.log "loginResponse"
-	console.log response
-	applyLoginSuccess(response.authToken) if response.result == "ok"
-	applyLoginFail() if response.result == "error"
-
-applyLoginSuccess = (authToken) ->
-    console.log "applyLoginSuccess"
-    console.log authToken
-    setStateLoggedIn(authToken)
-    allModules.datahandlermodule.retrieveData()
-
-applyLoginFail = () ->
-    console.log "applyLoginFail"
-    setStateNotLoggedIn()
 
 ################################################################################
 # State Setter Function

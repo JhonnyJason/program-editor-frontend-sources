@@ -1,111 +1,63 @@
 #maincontent
-    #choose-program-section.top-section
-        button.pressbutton#perform-programs-button Perform
-        button.pressbutton#relax-programs-button Relax
-        select#program-select
-            option Program
-        //- button#load-button Laden
-        .h-spacer
+    #program-version-table-section.top-section
+        include ../programversiontablemodule/programversiontable.pug
     
-    #langtag-section.top-section
-        button.pressbutton#de-langtag-button de
-        button.pressbutton#en-langtag-button en
-        button.pressbutton#es-langtag-button es
-        
-    #program-name-section.top-section
-        label(for="program-name-input") Name des Programms:
-        input#program-name-input(type="text")
-        
-    #program-stats-section.top-section
-        .subline
-            label(for="intensity-stat-input") Intensität:
-            input#intensity-stat-input(type="number" step="1" min="0" max="6")
-        .subline
-            label(for="temperature-stat-input") Temperatur:
-            input#temperature-stat-input(type="number" step="1" min="0" max="6")
-        .subline
-            label(for="vibration-stat-input") Vibration:
-            input#vibration-stat-input(type="number" step="1" min="0" max="6")
+    #run-history-section.top-section
+        include ../runhistorymodule/runhistory.pug
+    .footer
+    #edit-run-label-section.top-section
+        label(for="edit-run-label-input") Run Label:
+        input#edit-run-label-input(type="text")
         .h-spacer
 
-    #program-icon-section.top-section
-        .subline
-            //- form(ref='uploadForm' action='/upload' method='post' encType="multipart/form-data")
-            label(for="svg-file-input") Programm Icon:
-            button.programbutton.unselectable(onselectstart="return false;")
-                .button-text template
-                .button-svg-container
-            //- img#program-icon
-            input#svg-file-input(type="file")
-            label#uploading-indicator
-            //- input(type="submit")
-        //- .subline
-        //-     label(for="gif-file-input") Animiertes Icon:
-        //-     img#animated-icon
-        //-     input#gif-file-input(type="file")
+    #run-timestamp-section.top-section
+        label#run-timestamp-label Zeitpunkt:
+        label#run-timestamp XX:XX
         .h-spacer
 
-    #program-description-section.top-section
-        label(for="program-description-text") Beschreibung des Programms:
-        textarea#program-description-text(cols="100", rows="30")
+
+    .footer 
+    #pushnplay-button
+   
+    #activate-button-section.top-section
+        label#being-active-indicator 
+        button#set-active-button -> Set Active!#
+        button#clone-program-button -> Clone Program!
+        .h-spacer
+
+
+    #edit-version-label-section.top-section
+        label(for="edit-version-label-input") Version Label:
+        input#edit-version-label-input(type="text")
+        .h-spacer
+
+
+    #duration-section.top-section
+        label(for="duration-input") Dauer des Programms:
+        input#duration-input(type="number" step="100")
+        .unit ms
+        .h-spacer
 
     .footer
-    //- #duration-section.top-section
-    //-     label(for="duration-input") Dauer des Programms:
-    //-     input#duration-input(type="number" step="100")
-    //-     .unit ms
-    //-     .h-spacer
-
-    //- //- #min-max-temperature-define-section.top-section
-    //- //-     .subline
-    //- //-         label(for="min-temp-input") Minimaltemperatur:
-    //- //-         input#min-temp-input(type="number" step="0.5" min="0" max="45")
-    //- //-         .unit °C
-    //- //-     .subline
-    //- //-         label(for="max-temp-input") - Maximaltemperatur:
-    //- //-         input#max-temp-input(type="number" step="0.5" min="0" max="45")
-    //- //-         .unit °C
-    //- //-     .h-spacer
-
-    //- //- #min-max-vibration-define-section.top-section
-    //- //-     .subline
-    //- //-         label(for="min-vib-input") Minimalvibration:
-    //- //-         input#min-vib-input(type="number" step="1" min="0" max="255")
-    //- //-         .unit x
-    //- //-     .subline
-    //- //-         label(for="max-vib-input") - Maximalvibration:
-    //- //-         input#max-vib-input(type="number" step="1" min="0" max="255")
-    //- //-         .unit x
-    //- //-     .h-spacer
-
-    //- //- #min-max-agression-define-section.top-section
-    //- //-     .subline
-    //- //-         label(for="min-agression-input") Minimalagression:
-    //- //-         input#min-agression-input(type="number" step="1" min="0" max="255")
-    //- //-         .unit x
-    //- //-     .subline
-    //- //-         label(for="max-agression-input") - Maximalagression:
-    //- //-         input#max-agression-input(type="number" step="1" min="0" max="255")
-    //- //-         .unit x
-    //- //-     .h-spacer
-
-
-    //- .footer
-    //- #program-data-container
-    //-     include ../dynamiccontentmodule/dynamiccontent.pug
-    //-     #static-background
-    //-         h1#agression-header.header Agression (Kühlintensität)
-    //-         #agression-space
-    //-         h1#pte1-header.header PTE1 (Linke Schläfe)
-    //-         #pte1-space.pte-space
-    //-         h1#pte23-header.header PTE2-PTE3 (Stirn)
-    //-         #pte23-space.pte-space
-    //-         h1#pte4-header.header PTE4 (Rechtes Schläfe)
-    //-         #pte4-space.pte-space
-    //-         h1#vib1-header.header VIB1 (Linker Vibrator)
-    //-         #vib1-space.vib-space
-    //-         h1#vib2-header.header VIB2 (Rechter Vibrator)
-    //-         #vib2-space.vib-space
+    #program-data-container
+        include ../dynamiccontentmodule/dynamiccontent.pug
+        #static-background
+            h1#agression-header.header Agression (Kühlintensität)
+            #agression-space
+            h1#pte1-header.header PTE1 (Linke Schläfe)
+            #pte1-space.pte-space
+                svg#pte1-svg-container(preserveAspectRatio="none" viewBox="0 0 1000 1000")
+            h1#pte23-header.header PTE2-PTE3 (Stirn)
+            #pte23-space.pte-space
+                svg#pte23-svg-container(preserveAspectRatio="none" viewBox="0 0 1000 1000")
+            h1#pte4-header.header PTE4 (Rechtes Schläfe)
+            #pte4-space.pte-space
+                svg#pte4-svg-container(preserveAspectRatio="none" viewBox="0 0 1000 1000")
+            h1#vib1-header.header VIB1 (Linker Vibrator)
+            #vib1-space.vib-space
+            h1#vib2-header.header VIB2 (Rechter Vibrator)
+            #vib2-space.vib-space
             
-    //- .footer
+    .footer
+    #buffer-table-container
     

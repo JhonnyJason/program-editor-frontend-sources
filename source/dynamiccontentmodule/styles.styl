@@ -1,0 +1,202 @@
+#dynamic-background
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height total-chart-height
+
+#select-rect
+    fill rgba(0, 0, 0, 0.1)
+    
+/*=========================================================================
+Channel
+=========================================================================*/
+.channel-background
+    fill rgba(0,0,0,0)
+
+.channel.selected
+    .channel-background
+        fill #7774
+
+#dynamic-background.channel-select
+    .channel-background:hover
+        fill #afd6fc66
+        // fill #e0edf9bb
+
+#dynamic-background.channel-select
+    .channel.selected
+        .channel-background:hover
+            fill #7772
+
+
+/*=========================================================================
+Timesection
+=========================================================================*/
+.timesegment-background
+    fill rgba(0,0,0,0)
+.timesegment-background:hover
+    fill #afd6fc66
+    // fill #e0edf9bb 
+
+.timesegment:nth-child(2n)
+    .timesegment-background
+        fill: rgba(175, 214, 252, 0.5)
+    .timesegment-background:hover
+        fill #afd6fc66
+        // fill #e0edf9bb 
+
+
+#dynamic-background.channel-select
+    .timesegment-background
+        pointer-events: none
+
+
+.timesegment.selected
+    .timesegment-background
+        fill: rgba(0, 0, 0, 0.3)
+    .timesegment-background:hover
+        fill: rgba(0, 0, 0, 0.2)
+    .timesegment-edit-input-line
+        display block
+    .timesegment-add-line
+        display none
+
+.timesegment.selected:nth-child(2n)
+    .timesegment-background
+        fill: rgba(75, 114, 152, 0.3)
+
+
+.timesegment:hover
+    .timesegment-add-line
+        display  block
+
+
+.timesegment
+    foreignObject 
+        overflow hidden
+    .timesegment-edit-input-line
+        position relative
+        display none
+        width 90px
+        .timesegment-edit-input
+            width 60px
+            font-size: medium-font
+        .unit
+            margin 0        
+
+    .timesegment-add-line
+        display  none
+        box-sizing: border-box
+        position: relative
+        transition all 0.3s
+        transform translateX(-70px)
+        width 100px
+        background-color: grey 
+        border-radius: 0 8px 8px 0
+        z-index: 50
+        .timesegment-add-input-line
+            display inline-block
+            margin 0
+            padding 0
+            width:  70px
+            .timesegment-add-input
+                display inline-block
+                width: 60px
+                box-sizing: border-box
+                margin:0
+            .unit
+                display inline-block
+                padding 0 
+                margin 0
+                overflow hidden
+                color black
+        .timesegment-add-button
+            display inline-block
+            box-sizing: border-box
+            padding 5px
+            padding-right 10px
+            color main-blue
+            text-shadow: 1px 1px light-blue;
+    .timesegment-add-line.open
+        transform translateX(0px)
+    .timesegment-add-button:active
+        position relative
+        top 2px
+
+        
+/*=========================================================================
+Valuelines
+=========================================================================*/
+.valueline
+    .valueline-background
+        fill rgba(0,0,0,0)
+    .valueline-background:hover
+        fill #afd6fc66
+    .valueline-edit-line
+        display none
+        position relative
+        width 120px
+        left: 0
+        background-color orange
+        padding-left: 3px
+        z-index: 50
+        .valueline-edit-input
+            display: inline-block
+            vertical-align: middle
+            width 60px
+        .unit
+            display: inline-block
+            vertical-align: middle
+            margin 0 
+            padding 0
+        .play-pause-block
+            display: none
+            vertical-align: middle                
+            width: 24px
+            height: 24px
+            margin-left 3px
+            .pause-block
+                transition opacity 0.2s
+                opacity 1
+                pointer-events: all
+            .play-block
+                transition opacity 0.2s
+                opacity 0
+                pointer-events: none
+            
+
+.valueline.selected
+    .valueline-background
+        fill rgba(0,0,0,0.3)
+    .valueline-background:hover
+        fill rgba(0,0,0,0.2)
+    foreignObject 
+        .valueline-edit-line
+            display block
+    
+.valueline
+    .valueline-line
+        pointer-events none
+        fill orange 
+.valueline.paused
+    .valueline-line
+        pointer-events none
+        fill grey 
+        opacity 0.7 
+    .valueline-edit-line
+        .play-pause-block
+            .pause-block
+                opacity 0
+                pointer-events: none
+            .play-block
+                opacity 1
+                pointer-events: all
+
+
+.valueline.vibration
+    .valueline-line
+        fill red 
+
+.valueline.agression
+        .valueline-line
+            fill blue 

@@ -1,0 +1,47 @@
+svg#chart-templates.shadow-dom(viewBox="28 0 500 550")
+    g#timesegment-hidden-template.timesegment
+        rect.timesegment-background
+        foreignObject
+            .timesegment-edit-input-line
+                input.timesegment-edit-input(type="number" step="0.1" min="0")
+                .unit s
+            .timesegment-add-line
+                .timesegment-add-input-line
+                    input.timesegment-add-input(type="number" step="0.1" min="0")
+                    .unit s
+                .timesegment-add-button +
+    g#valueline-hidden-template.valueline
+        rect.valueline-background
+        rect.valueline-line
+        foreignObject
+            .valueline-edit-line
+                input.valueline-edit-input(type="number")
+                .unit
+                svg.play-pause-block(viewBox="0 0 24 24")
+                    use.pause-block(href="#svg-pause-icon")
+                    use.play-block(href="#svg-play-icon")
+
+    g#channel-hidden-template.channel
+        rect.channel-background(x="0" width="100%")
+    g.hello-dude-mark
+      path(fill="#000" d='M441.017,210.375c-11.475,0-22.951,3.825-32.514,11.475c-7.648-17.212-24.861-30.6-43.986-30.6  c-11.475,0-21.037,3.825-28.688,9.562v-153C335.829,21.038,314.792,0,288.017,0c-26.776,0-47.813,21.038-47.813,47.812v133.875  c-7.65-5.737-17.212-9.562-28.688-9.562c-26.775,0-47.812,21.038-47.812,47.812v17.212c-38.25-34.425-80.325-61.2-107.1-34.425  c-38.25,38.25,42.075,112.837,103.275,225.675c43.988,78.412,105.188,107.1,166.388,107.1c89.887,0,162.562-72.675,162.562-162.562  v-114.75C488.829,231.413,467.792,210.375,441.017,210.375z M469.704,300.263v72.675c0,78.412-65.025,143.438-143.438,143.438  c-72.675,0-114.75-40.162-149.175-95.625c-74.588-126.225-128.138-183.6-107.1-204.638c21.038-21.037,72.675,24.863,112.837,66.938  v-63.112c0-15.3,13.388-28.688,28.688-28.688s28.688,13.388,28.688,28.688v47.812h19.125V47.812  c0-15.3,13.387-28.688,28.688-28.688c15.299,0,28.688,13.388,28.688,28.688v200.812h19.125v-9.562  c0-15.3,13.387-28.688,28.688-28.688c15.299,0,28.688,13.388,28.688,28.688v28.688h19.125v-9.562  c0-15.3,13.387-28.688,28.688-28.688c15.299,0,28.688,13.388,28.688,28.688V300.263z')
+
+svg#dynamic-background
+    rect#select-rect
+    svg#channel-layer
+    svg#timeline-layer
+//- #dynamic-background
+//-     #timesegment-hidden-template.timesegment
+//-         .timesegment-edit-input-line
+//-             input.timesegment-edit-input(type="number" step="0.1" min="0")
+//-             .unit s
+//-         .timesegment-add-line
+//-             .timesegment-add-input-line
+//-                 input.timesegment-add-input(type="number" step="0.1" min="0")
+//-                 .unit s
+//-             .timesegment-add-button +
+
+//-     #valueline-hidden-template.valueline
+//-         .valueline-edit-line
+//-             input.valueline-edit-input(type="number")
+//-             .unit

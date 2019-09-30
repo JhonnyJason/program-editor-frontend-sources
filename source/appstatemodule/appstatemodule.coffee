@@ -14,6 +14,7 @@ appstatemodule.initialize = () ->
 appstatemodule.authToken = "0xoxox"
 appstatemodule.loginState = 'notloggedin'
 appstatemodule.currentProgram = null
+appstatemodule.currentRun = null
 appstatemodule.currentLangTag = "de"
 
 #endregion

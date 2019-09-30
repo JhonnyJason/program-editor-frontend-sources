@@ -11,10 +11,7 @@ window.onload = ->
     ## Initialize Modules - ( basic DOM relevant iniializations )!
     for name, module of Modules
         module.initialize() 
-    
-    
-    Modules.startupmodule.appStartup()
-    
+        
 
 
 
