@@ -1,0 +1,185 @@
+/*==============================================================================
+RESET
+==============================================================================*/
+@import 'stylepresets/reset.styl'
+
+/*==============================================================================
+FONTS
+==============================================================================*/
+@font-face
+   font-family Aurox_CRS
+   font-style normal
+   src url(fonts/Aurox_CRS.ttf)
+
+/*==============================================================================
+GLOBAL VARIABLES
+==============================================================================*/
+contentwidth = 950px
+desktopscreen = 'screen and (min-width: %s)' %  contentwidth
+
+header-height = 80px
+
+main-blue = #afd6fc
+light-blue = #e0edf9
+
+big-font = 24px
+small-font = 16px
+medium-font = 20px 
+
+chart-header-height = (3 * medium-font)
+pte-space-height = 280px
+vib-space-height = 512px
+agression-space-height = 400px
+
+total-chart-height = ((6 * chart-header-height) + (3 * pte-space-height) + (2 * vib-space-height) + agression-space-height)
+
+
+/*==============================================================================
+GLOBAL MIXINS
+==============================================================================*/
+centered-background(src)
+    background-image url(src)
+    background-position: center
+    background-size: contain
+    background-repeat: no-repeat
+
+margin-content(margin)
+    width: 'calc(100% - ( %s * 2 ))' % margin
+    margin-left: margin
+    margin-right: margin
+
+
+
+/*==============================================================================
+GLOBAL STYLES
+==============================================================================*/
+body
+    font-size: small-font
+
+button.pressbutton {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-size: small-font
+}
+
+button.pressbutton:after {//for ripple effect
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, .5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+button.pressbutton:focus:not(:active)::after { //!! WTF is this selector xD!!
+  animation: ripple 1s ease-out;
+}
+
+select
+    background-color: light-blue
+    padding: 5px
+    border-radius: 4px
+
+.clear
+    clear: both
+
+.has-content-width
+    width: 100%
+    @media desktopscreen
+        width: contentwidth
+        margin: auto
+
+//we include the upwards button as standard...
+#upwards-button
+    cursor pointer
+    position: fixed
+    right: 30px
+    bottom: -50px
+    width: 40px
+    height: 32px
+    background-color: black
+    background-image: url("/img/uparrow.svg")
+    opacity: 0.4
+    background-size: cover
+    background-position: 0px -2px
+    background-repeat: no-repeat
+    z-index: 200
+
+#upwards-button:hover
+    -webkit-animation-name: upwards
+    animation-name: upwards
+    -webkit-animation-duration: 0.5s
+    animation-duration: 0.5s
+
+#upwards-button.shown
+    bottom: 30px
+    transition: bottom 0.5s ease-in
+
+
+/*==============================================================================
+ANIMATIONS
+==============================================================================*/
+@-webkit-keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+@-webkit-keyframes upwards {
+  0% {
+    background-position: 0px -2px;
+  }
+  50% {
+    background-position: 0px -10px;
+  }
+  100% {
+    background-position: 0px -2px;
+  }
+}
+
+@keyframes upwards {
+  0% {
+    background-position: 0px -2px;
+  }
+  50% {
+    background-position: 0px -10px;
+  }
+  100% {
+    background-position: 0px -2px;
+  }
+}
+
+/*==============================================================================
+Including other components
+==============================================================================*/
+@import '../allmodules/allmodules.styl'

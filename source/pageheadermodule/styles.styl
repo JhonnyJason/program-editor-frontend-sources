@@ -1,0 +1,56 @@
+/*==============================================================================
+HEADER
+==============================================================================*/
+#header
+    width: 100%;
+    height: header-height
+    background-color main-blue
+    z-index:1000;
+    position: fixed;
+    top: 0
+    color:#fff;
+    border-radius:0px;
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+
+    #left-block
+        display: flex
+        flex-direction: row
+        align-items: center
+        margin: 5px
+        img 
+            height: 40px
+
+    #right-block
+        display: flex
+        flex-direction: row
+        align-items: center
+        margin: 5px
+        input
+            display: none
+        label
+            display: none
+        button
+            margin 5px
+            padding 3px 5px
+            height: 30px
+            border-radius: 10px
+            background-color light-blue
+        #save-button
+            display none
+        #save-button.present
+            display block
+        #discard-button
+            display none
+        #discard-button.present
+            display block
+
+    #right-block.typing
+        input
+            display: block
+        label
+            display: block
+    .to-right
+        margin-right: 5px

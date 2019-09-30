@@ -1,0 +1,176 @@
+/*==============================================================================
+MAINCONTENT
+==============================================================================*/
+#maincontent
+    display none
+    margin-top: header-height
+
+#maincontent.loggedin
+    display block
+
+/*==============================================================================
+General Elements on this Page
+==============================================================================*/
+    .h-spacer
+            margin-right auto
+    .unit
+        display: inline-block
+        color: #777
+        margin-right 10px
+    h1
+        background-color: light-blue
+        font-size: medium-font
+        padding: medium-font
+    .pte-space
+        width: 100%
+        height: pte-space-height
+    .vib-space
+        width: 100%
+        height vib-space-height
+    #agression-space
+        width: 100%
+        height agression-space-height
+    .footer
+        width 100%
+        height 20px
+        background-color: main-blue
+    input
+        text-align right
+        border: none
+    .top-section
+        padding 20px
+    .top-section:nth-child(2n)
+        background-color: light-blue
+
+/*==============================================================================
+Choose Progrqm Section
+==============================================================================*/
+    #choose-program-section
+        display: flex
+        justify-content: space-around
+        align-items: center
+        button 
+            transition all 0.3s
+            border solid 2px main-blue
+            padding 10px
+            margin-right 30px
+            border-radius: 10px
+        button.selected
+            padding: 15px
+            background-color: light-blue
+
+        #load-button
+            // background-color: main-blue
+            background-color: #bbb
+            padding: 3px 5px
+            border none
+        #load-button:active
+            position: relative
+            top: -3px
+        #program-select
+            margin-right: 30px
+            margin-left 50px
+
+/*==============================================================================
+Choose Progrqm Section
+==============================================================================*/
+    #langtag-section
+        button
+            transition all 0.3s
+            border solid 2px main-blue
+            padding 5px
+            margin-right 30px
+            border-radius: 10px
+            background-color: white
+        button.selected
+            padding: 10px
+            background-color: light-blue
+
+/*==============================================================================
+Section for editing the Program Description
+==============================================================================*/
+    #program-description-section
+        label
+            display block
+
+/*==============================================================================
+Section for defining the Program stats
+==============================================================================*/
+    #program-stats-section
+        display flex
+        justify-content: space-around
+        input
+            width 35px
+            margin-right: 20px
+
+/*==============================================================================
+Section for uploading the Program Icons
+==============================================================================*/
+    #program-icon-section
+        display flex
+        justify-content: space-around
+        label
+            display block
+        input
+            display block
+        img
+            width 200px
+            height 200px
+
+/*==============================================================================
+Section to define Minimum and Maximum Temperature
+==============================================================================*/
+    #min-max-define-section
+        display flex
+        justify-content: space-around
+/*==============================================================================
+Section for the program buttons style
+==============================================================================*/
+button-stroke-color = rgba(0, 167, 206, 1)
+
+button-diag-vw-factor = 0.3566 /* = 53.5/150 */
+button-diag = (800px * button-diag-vw-factor)
+// programbutton relative factors
+button-text-height-factor = 0.1402 /* = 7.5/53.5 */
+button-border-width-factor = 0.003846 /* = 1/260 */
+button-border-shadow-factor = 0.053846, /* = 14/260 */
+button-text-y-gap-factor = 0.16923 /* = 44/260 */
+
+button.programbutton
+    margin 20px
+    background-size cover
+    background-position center
+    overflow hidden
+    white-space: nowrap
+    position relative
+    background-color white
+    box-shadow 0 0 button-diag * button-border-shadow-factor #000
+    border-radius 50%
+    border-width button-diag * button-border-width-factor
+    border-style solid 
+    border-color button-stroke-color
+    height button-diag
+    width button-diag
+    display block
+    .button-text
+        pointer-events none
+        font-family "Aurox_CRS"
+        font-size button-diag * button-text-height-factor
+        color button-stroke-color
+        position absolute
+        bottom button-diag * button-text-y-gap-factor
+        left 50%
+        transform translate(-50%, 0)
+    .button-svg-container
+        height 100%
+        width 100%
+        padding 0
+        border none
+        margin 0
+        pointer-events: none
+        svg 
+            height 100%
+            width 100%
+            padding 0
+            border none
+            margin 0

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with matplotlib (http://matplotlib.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="514pt"
+   version="1.1"
+   viewBox="0 0 748 514"
+   width="748pt"
+   id="svg326"
+   sodipodi:docname="step.svg"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06">
+  <metadata
+     id="metadata330">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1080"
+     id="namedview328"
+     showgrid="false"
+     inkscape:zoom="0.97399144"
+     inkscape:cx="369.61187"
+     inkscape:cy="312.73723"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg326" />
+  <defs
+     id="defs4">
+    <style
+       type="text/css"
+       id="style2">
+*{stroke-linecap:butt;stroke-linejoin:round;}
+  </style>
+  </defs>
+  <g
+     style="stroke-linecap:butt;stroke-linejoin:round"
+     id="axes_1"
+     transform="translate(44.661584,25.410901)">
+    <g
+       style="stroke-linecap:butt;stroke-linejoin:round"
+       id="patch_2"
+       transform="translate(-50.821803,-24.640874)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path9"
+         style="fill:#eaeaf2;stroke-linecap:butt;stroke-linejoin:round"
+         d="M 93.6,450.45 H 673.92 V 51.48 H 93.6 Z" />
+    </g>
+    <g
+       style="stroke-linecap:butt;stroke-linejoin:round"
+       id="line2d_34"
+       transform="translate(-50.821803,-24.640874)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path281"
+         style="fill:none;stroke:#dcdce6;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+         d="M 93.6,417.203 H 673.92"
+         clip-path="url(#pd831f6c710)" />
+    </g>
+    <g
+       style="stroke-linecap:butt;stroke-linejoin:round"
+       id="line2d_35"
+       transform="translate(-50.821803,-24.640874)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path284"
+         style="fill:none;stroke:#dcdce6;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+         d="M 383.76,450.45 V 51.48"
+         clip-path="url(#pd831f6c710)" />
+    </g>
+    <g
+       style="stroke-linecap:butt;stroke-linejoin:round"
+       id="line2d_36"
+       transform="translate(-50.821803,-24.640874)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path287"
+         style="fill:none;stroke:#386df9;stroke-width:2.2750001;stroke-linecap:round;stroke-linejoin:round"
+         d="m 93.6,417.203 h 290.015 l 0.29,-332.4755 H 673.92 v 0"
+         clip-path="url(#pd831f6c710)" />
+    </g>
+    <g
+       style="stroke-linecap:butt;stroke-linejoin:round"
+       id="patch_3"
+       transform="translate(-50.821803,-24.640874)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path290"
+         style="fill:none;stroke-linecap:butt;stroke-linejoin:round"
+         d="M 93.6,51.48 H 673.92" />
+    </g>
+    <g
+       style="stroke-linecap:butt;stroke-linejoin:round"
+       id="patch_4"
+       transform="translate(-50.821803,-24.640874)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path293"
+         style="fill:none;stroke-linecap:butt;stroke-linejoin:round"
+         d="M 93.6,450.45 V 51.48" />
+    </g>
+    <g
+       style="stroke-linecap:butt;stroke-linejoin:round"
+       id="patch_5"
+       transform="translate(-50.821803,-24.640874)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path296"
+         style="fill:none;stroke-linecap:butt;stroke-linejoin:round"
+         d="M 673.92,450.45 V 51.48" />
+    </g>
+    <g
+       style="stroke-linecap:butt;stroke-linejoin:round"
+       id="patch_6"
+       transform="translate(-50.821803,-24.640874)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path299"
+         style="fill:none;stroke-linecap:butt;stroke-linejoin:round"
+         d="M 93.6,450.45 H 673.92" />
+    </g>
+  </g>
+  <defs
+     id="defs324">
+    <clipPath
+       id="pd831f6c710">
+      <rect
+         height="398.97"
+         width="580.32"
+         x="93.6"
+         y="51.48"
+         id="rect321" />
+    </clipPath>
+  </defs>
+</svg>
