@@ -11,10 +11,10 @@ configmodule.initialize = () ->
     log JSON.stringify(configmodule)
 
 #region the configuration Object
-configmodule.sServerURL = 'http://program-tester.aurox.at'
-configmodule.websocketURL = 'http://program-tester.aurox.at' 
-# configmodule.sServerURL = 'http://localhost:3009'
-# configmodule.websocketURL = 'http://localhost:3009'
+# configmodule.sServerURL = 'http://program-tester.aurox.at'
+# configmodule.websocketURL = 'http://program-tester.aurox.at' 
+configmodule.sServerURL = 'https://localhost:3009'
+configmodule.websocketURL = 'https://localhost:3009'
 
 ################################################################################
 configmodule.fatality_alerts = true

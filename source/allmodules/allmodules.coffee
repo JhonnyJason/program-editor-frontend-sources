@@ -1,35 +1,33 @@
-import debugmodule from   "./debugmodule"
-import configmodule from "./configmodule"
+import actionhistorymodule from "./actionhistorymodule"
 import appstatemodule from "./appstatemodule"
-import datahandlermodule from "./datahandlermodule"
-import pageheadermodule from "./pageheadermodule"
+import configmodule from "./configmodule"
+import controlboardmodule from "./controlboardmodule"
+import debugmodule from "./debugmodule"
+import dynamiccontentmodule from "./dynamiccontentmodule"
+import keycommandmodule from "./keycommandmodule"
 import maincontentmodule from "./maincontentmodule"
+import messageboxmodule from "./messageboxmodule"
+import pageheadermodule from "./pageheadermodule"
 import programversiontablemodule from "./programversiontablemodule"
 import runhistorymodule from "./runhistorymodule"
-import dynamiccontentmodule from "./dynamiccontentmodule"
-import websocketmodule from "./websocketmodule"
-import keycommandmodule from "./keycommandmodule"
-import controlboardmodule from "./controlboardmodule"
 import selectmodule from "./selectmodule"
-import messageboxmodule from "./messageboxmodule"
-import actionhistorymodule from "./actionhistorymodule"
+import websocketmodule from "./websocketmodule"
 
 Modules = {
-    debugmodule,
-    configmodule,
+    actionhistorymodule,
     appstatemodule,
-    datahandlermodule,
-    pageheadermodule,
+    configmodule,
+    controlboardmodule,
+    debugmodule,
+    dynamiccontentmodule,
+    keycommandmodule,
     maincontentmodule,
+    messageboxmodule,
+    pageheadermodule,
     programversiontablemodule,
     runhistorymodule,
-    dynamiccontentmodule,
-    websocketmodule,
-    keycommandmodule,
-    controlboardmodule,
     selectmodule,
-    messageboxmodule,
-    actionhistorymodule
+    websocketmodule,
 }
 
 export default Modules

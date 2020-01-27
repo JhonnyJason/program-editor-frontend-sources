@@ -17,9 +17,7 @@ html
 
         //- meta(http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com * ws:; style-src 'self' 'unsafe-inline' data: blob:;media-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src 'self' data: content:;")
         meta(http-equiv="Content-Security-Policy" content="default-src 'self' *; img-src *; script-src * 'unsafe-inline'; style-src * 'unsafe-inline';")
-
-        
+    
         include styles-include.pug
         include scripts-include.pug
-    body
-        block body
+    include ../../source/index/indexbody.pug
