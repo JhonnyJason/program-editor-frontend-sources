@@ -13,8 +13,8 @@ configmodule.initialize = () ->
 #region the configuration Object
 # configmodule.sServerURL = 'http://program-tester.aurox.at'
 # configmodule.websocketURL = 'http://program-tester.aurox.at' 
-configmodule.sServerURL = 'https://localhost:3009'
-configmodule.websocketURL = 'https://localhost:3009'
+configmodule.sServerURL = 'https://localhost:6969'
+configmodule.websocketURL = 'https://localhost:6969'
 
 ################################################################################
 configmodule.fatality_alerts = true

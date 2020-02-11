@@ -15,8 +15,8 @@ communicationQueu = []
 ##initialization function  -> is automatically being called!  ONLY RELY ON DOM AND VARIABLES!! NO PLUGINS NO OHTER INITIALIZATIONS!!
 websocketmodule.initialize = () ->
     log "websocketmodule.initialize"
-    socket = io(allModules.configmodule.websocketURL)
-    socketConfiguration()
+    # socket = io(allModules.configmodule.websocketURL)
+    # socketConfiguration()
 
 
 #region internal functions
