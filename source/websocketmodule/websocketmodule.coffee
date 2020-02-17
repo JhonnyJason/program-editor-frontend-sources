@@ -4,64 +4,129 @@ websocketmodule = {name: "websocketmodule", uimodule: false}
 log = (arg) ->
     if allModules.debugmodule.modulesToDebug["websocketmodule"]?  then console.log "[websocketmodule]: " + arg
     return
+ostr = (o) -> "\n" + JSON.stringify(o, null, 4)
 
-#region internal variables
+############################################################
+cfg = null
+
+############################################################
 socket = null
 connected = false
 
+############################################################
 communicationQueu = []
-#endregion internal variables
+reflexes = {}
 
 ##initialization function  -> is automatically being called!  ONLY RELY ON DOM AND VARIABLES!! NO PLUGINS NO OHTER INITIALIZATIONS!!
 websocketmodule.initialize = () ->
     log "websocketmodule.initialize"
+    cfg = allModules.configmodule
+    serverURL = cfg.websocketURL
+
+    log "server URL is: " + serverURL
+
+    ############################################################
+    socket = new WebSocket(serverURL)
+    
+    socket.onopen = onSocketConnect
+    socket.onmessage = onSocketMessage
+    socket.onerror = onSocketError
+    socket.onclose = onSocketClose
+
+    reflexes["programsOverview"] = handleRetrievedProgramsOverview
+    reflexes["staticProgramData"] = handleRetrievedStaticProgramData
+    reflexes["program"] = handleRetrievedProgram
+    reflexes["cloneCreated"] = handleCloneCreated
+    reflexes["runOverview"] = handleRetrievedRunOverview
+    reflexes["run"] = handleRetrievedRun
+    # other
+    reflexes["langStrings"] = handleRetrievedLangStrings
+    reflexes["loginResult"] = handleLoginResult
+
     # socket = io(allModules.configmodule.websocketURL)
     # socketConfiguration()
 
 
-#region internal functions
-socketConfiguration = ->
-    log "socketConfiguration"
-    socket.on("connect", 
-        -> 
-            connected = true
-            for task in communicationQueu
-                task()
-            communicationQueu.length = 0
-    )
-    socket.on("connect_error", 
-        (reason) -> 
-            allModules.messageboxmodule.showErrorMessage("connect error!\n" + reason)
-            connected = false
-            allModules.pageheadermodule.communicationFail("connect error: " + reason)
-    )
-    socket.on("connect_timeout", 
-        (reason) -> 
-            allModules.messageboxmodule.showErrorMessage("connect timeout!\n" + reason)
-            connected = false
-            allModules.pageheadermodule.communicationFail("connect timeout!: " + reason)
-    )
-    socket.on("disconnect", 
-        (reason) ->
-            allModules.messageboxmodule.showErrorMessage("we disconnected!\n" + reason)
-            connected = false
-            allModules.pageheadermodule.communicationFail("disconnect: " + reason)
-    )
-    # programs DB data
-    socket.on("programsOverview", handleRetrievedProgramsOverview)
-    socket.on("staticProgramData", handleRetrievedStaticProgramData)
-    socket.on("program", handleRetrievedProgram)
-    socket.on("cloneCreated", handleCloneCreated)
-    socket.on("runOverview", handleRetrievedRunOverview)
-    socket.on("run", handleRetrievedRun)
-    # other
-    socket.on("langStrings", handleRetrievedLangStrings)
-    socket.on("loginResult", handleLoginResult)
+############################################################
+#region internalFunctions
+createMessage = (name, data) -> return JSON.stringify({name, data})
 
+############################################################
+#region socketEvents
+onSocketConnect = (arg) ->
+    log "onSocketConnect"
+    log Date.now()
+    connected = true
+    do task() for task in communicationQueu
+    communicationQueu.length = 0    
+    return
 
-################################################################################
-# Response Handling Functions
-################################################################################
+onSocketError = (arg) ->
+    log "onSocketError"
+    allModules.messageboxmodule.showErrorMessage("Socket error!\n" + arg)
+    # connected = false
+    # allModules.pageheadermodule.communicationFail("connect error: " + arg)
+    return
+
+onSocketClose = (arg) ->
+    log "onSocketClose"
+    log Date.now()
+    allModules.messageboxmodule.showErrorMessage("Socket closed!\n" + arg)
+    connected = false
+    allModules.pageheadermodule.communicationFail("Socket closed!: " + arg)
+    return
+
+onSocketMessage = (message) ->
+    log "onSocketMessage"
+    try signal = JSON.parse(message)
+    catch err then return
+    return unless deliveryActions[delivery.key]
+    reflexes[signal.name](signal.data)
+    return
+
+#endregion
+
+############################################################
+#region oldCode
+# socketConfiguration = ->
+#     log "socketConfiguration"
+#     socket.on("connect", 
+#         -> 
+#             connected = true
+#             for task in communicationQueu
+#                 task()
+#             communicationQueu.length = 0
+#     )
+#     socket.on("connect_error", 
+#         (reason) -> 
+#     )
+#     socket.on("connect_timeout", 
+#         (reason) -> 
+#             allModules.messageboxmodule.showErrorMessage("connect timeout!\n" + reason)
+#             connected = false
+#             allModules.pageheadermodule.communicationFail("connect timeout!: " + reason)
+#     )
+#     socket.on("disconnect", 
+#         (reason) ->
+#             allModules.messageboxmodule.showErrorMessage("we disconnected!\n" + reason)
+#             connected = false
+#             allModules.pageheadermodule.communicationFail("disconnect: " + reason)
+#     )
+
+#     # programs DB data
+#     socket.on("programsOverview", handleRetrievedProgramsOverview)
+#     socket.on("staticProgramData", handleRetrievedStaticProgramData)
+#     socket.on("program", handleRetrievedProgram)
+#     socket.on("cloneCreated", handleCloneCreated)
+#     socket.on("runOverview", handleRetrievedRunOverview)
+#     socket.on("run", handleRetrievedRun)
+#     # other
+#     socket.on("langStrings", handleRetrievedLangStrings)
+#     socket.on("loginResult", handleLoginResult)
+#endregion
+
+############################################################
+#region reflexFunctions
 handleCloneCreated = (programsOverviewEntry) ->
     log "handleDataUpdate"
     allModules.datahandlermodule.addCloneToProgramsOverview(programsOverviewEntry)
@@ -96,10 +161,13 @@ handleRetrievedRunOverview = (runOverview) ->
 handleRetrievedLangStrings = (langStrings) ->
     log "handleRetrievedLangStrings"
     allModules.datahandlermodule.setLangStrings(langStrings)
-################################################################################
-#endregion internal functions
     
-#region exposed functions
+#endregion
+
+#endregion
+
+############################################################
+#region exposedFunctions
 websocketmodule.attemptLogin = (data) ->
     log "websocketmodule.attemptLogin"
     if (!connected) 
@@ -109,7 +177,10 @@ websocketmodule.attemptLogin = (data) ->
         communicationQueu.push(commmunicationBlock)
         return
 
-    socket.emit("loginAttempt", data, (data)-> log "loginAttempt: is there an answer? " + JSON.stringify(data))
+    message = createMessage("loginAttempt", data)
+    socket.send(message)
+
+    # socket.emit("loginAttempt", data, (data)-> log "loginAttempt: is there an answer? " + JSON.stringify(data))
 
 websocketmodule.communicateClonage = (dynamicProgramId) ->
     log "websocketmodule.communicateClonage"
@@ -121,7 +192,10 @@ websocketmodule.communicateClonage = (dynamicProgramId) ->
         communicationQueu.push(commmunicationBlock)
         return
 
-    socket.emit("cloneProgramPlease", dynamicProgramId, (data)-> log "cloneProgram: is there an answer? " + JSON.stringify(data))
+    message = createMessage("cloneProgramPlease", dynamicProgramId)
+    socket.send(message)
+
+    # socket.emit("cloneProgramPlease", dynamicProgramId, (data)-> log "cloneProgram: is there an answer? " + JSON.stringify(data))
 
 websocketmodule.setProgramActive = (dynamicProgramId) ->
     log "websocketmodule.setProgramActive"
@@ -132,7 +206,10 @@ websocketmodule.setProgramActive = (dynamicProgramId) ->
         communicationQueu.push(commmunicationBlock)
         return
 
-    socket.emit("setProgramActivePlease", dynamicProgramId, (data)-> log "setProgramActivePlease: is there an answer? " + JSON.stringify(data))
+    message = createMessage("setProgramActivePlease", dynamicProgramId)
+    socket.send(message)
+
+    # socket.emit("setProgramActivePlease", dynamicProgramId, (data)-> log "setProgramActivePlease: is there an answer? " + JSON.stringify(data))
 
 websocketmodule.saveProgram = (program) ->
     log "websocketmodule.saveProgram"
@@ -144,7 +221,10 @@ websocketmodule.saveProgram = (program) ->
         communicationQueu.push(commmunicationBlock)
         return
 
-    socket.emit("saveProgramPlease", program, (data) -> log "saveProgramPlease: is there an answer? " + JSON.stringify(data))
+    message = createMessage("saveProgramPlease", program)
+    socket.send(message)
+
+    # socket.emit("saveProgramPlease", program, (data) -> log "saveProgramPlease: is there an answer? " + JSON.stringify(data))
 
 
 websocketmodule.updateRunLabel = (data) ->
@@ -157,12 +237,14 @@ websocketmodule.updateRunLabel = (data) ->
         communicationQueu.push(commmunicationBlock)
         return
 
-    socket.emit("updateRunLabelPlease", data, (data) -> log "updateRunLabelPlease: is there an answer? " + JSON.stringify(data))
+    message = createMessage("updateRunLabelPlease", data)
+    socket.send(message)
+
+    # socket.emit("updateRunLabelPlease", data, (data) -> log "updateRunLabelPlease: is there an answer? " + JSON.stringify(data))
 
 
-# Retrieve Functions
-################################################################################
-
+############################################################
+#region retrievalFunctions
 websocketmodule.retrieveProgram = (programsDynamicId) ->
     log "websocketmodule.retrieveProgram"
     if (!connected) 
@@ -172,7 +254,9 @@ websocketmodule.retrieveProgram = (programsDynamicId) ->
         communicationQueu.push(commmunicationBlock)
         return
 
-    socket.emit("programPlease", programsDynamicId, (data) -> log "programPlease: is there an answer? " + JSON.stringify(data))
+    message = createMessage("programPlease", programsDynamicId)
+    socket.send(message)
+    # socket.emit("programPlease", programsDynamicId, (data) -> log "programPlease: is there an answer? " + JSON.stringify(data))
 
 websocketmodule.retrieveRun = (programsRunsId) ->
     log "websocketmodule.retrieveRun"
@@ -183,7 +267,10 @@ websocketmodule.retrieveRun = (programsRunsId) ->
         communicationQueu.push(commmunicationBlock)
         return
 
-    socket.emit("runPlease", programsRunsId, (data) -> log "runPlease: is there an answer? " + JSON.stringify(data))
+    message = createMessage("runPlease", programsRunsId)
+    socket.send(message)
+
+    # socket.emit("runPlease", programsRunsId, (data) -> log "runPlease: is there an answer? " + JSON.stringify(data))
 
 
 websocketmodule.retrieveProgramsOverview = ->
@@ -195,7 +282,10 @@ websocketmodule.retrieveProgramsOverview = ->
         communicationQueu.push(commmunicationBlock)
         return
     
-    socket.emit("programOverviewPlease", '?', (data) -> log "programOverviewPlease: is there an answer? " + JSON.stringify(data) )
+    message = createMessage("programOverviewPlease", null)
+    socket.send(message)
+
+    # socket.emit("programOverviewPlease", '?', (data) -> log "programOverviewPlease: is there an answer? " + JSON.stringify(data) )
 
 websocketmodule.retrieveRunOverview = (id) ->
     log "websocketmodule.retrieveRunOverview"
@@ -206,7 +296,10 @@ websocketmodule.retrieveRunOverview = (id) ->
         communicationQueu.push(commmunicationBlock)
         return
     
-    socket.emit("runOverviewPlease", id, (data) -> log "runOverviewPlease: is there an answer? " + JSON.stringify(data) )
+    message = createMessage("programOverviewPlease", null)
+    socket.send(message)
+
+    # socket.emit("runOverviewPlease", id, (data) -> log "runOverviewPlease: is there an answer? " + JSON.stringify(data) )
 
 websocketmodule.retrieveStaticProgramData = ->
     log "websocketmodule.retrieveStaticProgramData"
@@ -217,7 +310,10 @@ websocketmodule.retrieveStaticProgramData = ->
         communicationQueu.push(commmunicationBlock)
         return
 
-    socket.emit("staticProgramDataPlease", "?", (data) -> log "staticDataPlease: is there an answer? " + JSON.stringify(data) )
+    message = createMessage("staticProgramDataPlease", null)
+    socket.send(message)
+
+    # socket.emit("staticProgramDataPlease", "?", (data) -> log "staticDataPlease: is there an answer? " + JSON.stringify(data) )
 
 websocketmodule.retrieveLangStrings = ->
     log "websocketmodule.retrieveLangStrings"
@@ -228,7 +324,12 @@ websocketmodule.retrieveLangStrings = ->
         communicationQueu.push(commmunicationBlock)
         return
 
-    socket.emit("langStringsPlease", "?", (data) -> log "staticDataPlease: is there an answer? " + JSON.stringify(data) )
+    message = createMessage("langStringsPlease", null)
+    socket.send(message)
+
+    # socket.emit("langStringsPlease", "?", (data) -> log "staticDataPlease: is there an answer? " + JSON.stringify(data) )
+
+#endregion
 
 #endregion
 

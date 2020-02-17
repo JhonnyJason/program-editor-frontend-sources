@@ -8,19 +8,19 @@ debugmodule.initialize = () ->
 
 debugmodule.modulesToDebug = 
     ## UI modules
-    configmodule: true
-    appstatemodule: true
-    datahandlermodule: true
-    pageheadermodule: true
-    maincontentmodule: true
-    programversiontablemodule: true
-    runhistorymodule: true
-    dynamiccontentmodule: true
+    # configmodule: true
+    # appstatemodule: true
+    # datahandlermodule: true
+    # pageheadermodule: true
+    # maincontentmodule: true
+    # programversiontablemodule: true
+    # runhistorymodule: true
+    # dynamiccontentmodule: true
     websocketmodule: true
-    keycommandmodule: true
-    controlboardmodule: true
-    selectmodule: true
-    messageboxmodule: true
-    actionhistorymodule: true
+    # keycommandmodule: true
+    # controlboardmodule: true
+    # selectmodule: true
+    # messageboxmodule: true
+    # actionhistorymodule: true
 
 export default debugmodule
