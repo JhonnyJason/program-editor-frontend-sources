@@ -5,6 +5,7 @@ log = (arg) ->
     if allModules.debugmodule.modulesToDebug["websocketmodule"]?  then console.log "[websocketmodule]: " + arg
     return
 ostr = (o) -> "\n" + JSON.stringify(o, null, 4)
+olog = (o) -> log ostr(o)
 
 ############################################################
 cfg = null
@@ -17,7 +18,7 @@ connected = false
 communicationQueu = []
 reflexes = {}
 
-##initialization function  -> is automatically being called!  ONLY RELY ON DOM AND VARIABLES!! NO PLUGINS NO OHTER INITIALIZATIONS!!
+############################################################
 websocketmodule.initialize = () ->
     log "websocketmodule.initialize"
     cfg = allModules.configmodule
@@ -45,7 +46,7 @@ websocketmodule.initialize = () ->
 
     # socket = io(allModules.configmodule.websocketURL)
     # socketConfiguration()
-
+    return
 
 ############################################################
 #region internalFunctions
@@ -76,12 +77,13 @@ onSocketClose = (arg) ->
     allModules.pageheadermodule.communicationFail("Socket closed!: " + arg)
     return
 
-onSocketMessage = (message) ->
+onSocketMessage = (arg) ->
     log "onSocketMessage"
-    try signal = JSON.parse(message)
-    catch err then return
-    return unless deliveryActions[delivery.key]
-    reflexes[signal.name](signal.data)
+    try 
+        signal = JSON.parse(arg.data)
+        return unless reflexes[signal.name]
+        reflexes[signal.name](signal.data)
+    catch err then log "Error occurred onmessage!"
     return
 
 #endregion
@@ -242,7 +244,6 @@ websocketmodule.updateRunLabel = (data) ->
 
     # socket.emit("updateRunLabelPlease", data, (data) -> log "updateRunLabelPlease: is there an answer? " + JSON.stringify(data))
 
-
 ############################################################
 #region retrievalFunctions
 websocketmodule.retrieveProgram = (programsDynamicId) ->
@@ -284,8 +285,7 @@ websocketmodule.retrieveProgramsOverview = ->
     
     message = createMessage("programOverviewPlease", null)
     socket.send(message)
-
-    # socket.emit("programOverviewPlease", '?', (data) -> log "programOverviewPlease: is there an answer? " + JSON.stringify(data) )
+    return
 
 websocketmodule.retrieveRunOverview = (id) ->
     log "websocketmodule.retrieveRunOverview"
@@ -299,7 +299,7 @@ websocketmodule.retrieveRunOverview = (id) ->
     message = createMessage("programOverviewPlease", null)
     socket.send(message)
 
-    # socket.emit("runOverviewPlease", id, (data) -> log "runOverviewPlease: is there an answer? " + JSON.stringify(data) )
+    return
 
 websocketmodule.retrieveStaticProgramData = ->
     log "websocketmodule.retrieveStaticProgramData"
@@ -313,7 +313,10 @@ websocketmodule.retrieveStaticProgramData = ->
     message = createMessage("staticProgramDataPlease", null)
     socket.send(message)
 
-    # socket.emit("staticProgramDataPlease", "?", (data) -> log "staticDataPlease: is there an answer? " + JSON.stringify(data) )
+    return
+
+
+
 
 websocketmodule.retrieveLangStrings = ->
     log "websocketmodule.retrieveLangStrings"
@@ -324,11 +327,11 @@ websocketmodule.retrieveLangStrings = ->
         communicationQueu.push(commmunicationBlock)
         return
 
+    ## TODO here we should retrieve the langStrings from the Program Manager
     message = createMessage("langStringsPlease", null)
     socket.send(message)
-
-    # socket.emit("langStringsPlease", "?", (data) -> log "staticDataPlease: is there an answer? " + JSON.stringify(data) )
-
+    return
+    
 #endregion
 
 #endregion

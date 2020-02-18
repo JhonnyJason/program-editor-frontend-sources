@@ -7,7 +7,8 @@ log = (arg) ->
     if allModules.debugmodule.modulesToDebug["pageheadermodule"]?  then console.log "[pageheadermodule]: " + arg
     return
 
-#region internal variables
+############################################################
+#region internalVariables
 loginButton = null
 saveButton = null
 discardButton = null
@@ -18,7 +19,7 @@ maincontent = null
 AppVars = null
 #endregion internal variables
 
-##initialization function  -> is automatically being called!  ONLY RELY ON DOM AND VARIABLES!! NO PLUGINS NO OHTER INITIALIZATIONS!!
+############################################################
 pageheadermodule.initialize = () ->
     log "pageheadermodule.initialize"
     AppVars = allModules.appstatemodule
@@ -33,36 +34,10 @@ pageheadermodule.initialize = () ->
     loginButton.addEventListener 'click', loginButtonClicked
     discardButton.addEventListener 'click', discardButtonClicked 
     saveButton.addEventListener 'click', saveButtonClicked 
+    return
 
-#region exposed functions
-pageheadermodule.setStateUnsavedChanges = ->
-    log "pageheadermodule.setStateUnsavedChanges"
-    saveButton.disabled = false
-    discardButton.disabled = false
-
-pageheadermodule.setStateNoUnsavedChanges = ->
-    log "pageheadermodule.setStateNoUnsavedChanges"
-    saveButton.disabled = true
-    discardButton.disabled = true
-
-
-pageheadermodule.applyLoginSuccess = () ->
-    log "applyLoginSuccess"
-    setStateLoggedIn()
-    allModules.datahandlermodule.retrieveAllData()
-
-pageheadermodule.applyLoginFail = () ->
-    log "applyLoginFail"
-    setStateNotLoggedIn()
-
-pageheadermodule.communicationFail = (error) ->
-    log "communication to the Server has failed!"
-    log error
-    pageheadermodule.applyLoginFail()
-
-#endregion
-
-#region internal functions
+############################################################
+#region internalFunctions
 startLogIn = ->
     password = passwordInput.value if passwordInput
     log password
@@ -122,6 +97,36 @@ setStateTyping = ->
     discardButton.classList.remove 'present'
     loginButton.innerHTML = "OK"
     passwordInput.focus()
+#endregion
+
+############################################################
+#region exposedFunctions
+pageheadermodule.setStateUnsavedChanges = ->
+    log "pageheadermodule.setStateUnsavedChanges"
+    saveButton.disabled = false
+    discardButton.disabled = false
+
+pageheadermodule.setStateNoUnsavedChanges = ->
+    log "pageheadermodule.setStateNoUnsavedChanges"
+    saveButton.disabled = true
+    discardButton.disabled = true
+
+
+############################################################
+pageheadermodule.applyLoginSuccess = () ->
+    log "applyLoginSuccess"
+    setStateLoggedIn()
+    allModules.datahandlermodule.retrieveAllData()
+
+pageheadermodule.applyLoginFail = () ->
+    log "applyLoginFail"
+    setStateNotLoggedIn()
+
+pageheadermodule.communicationFail = (error) ->
+    log "communication to the Server has failed!"
+    log error
+    pageheadermodule.applyLoginFail()
+
 #endregion
 
 export default pageheadermodule

@@ -7,16 +7,17 @@ debugmodule.initialize = () ->
     return
 
 debugmodule.modulesToDebug = 
+    unbreaker: true
     ## UI modules
     # configmodule: true
     # appstatemodule: true
-    # datahandlermodule: true
+    datahandlermodule: true
     # pageheadermodule: true
     # maincontentmodule: true
-    # programversiontablemodule: true
+    programversiontablemodule: true
     # runhistorymodule: true
     # dynamiccontentmodule: true
-    websocketmodule: true
+    # websocketmodule: true
     # keycommandmodule: true
     # controlboardmodule: true
     # selectmodule: true

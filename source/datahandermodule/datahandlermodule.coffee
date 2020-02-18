@@ -1,12 +1,13 @@
 datahandlermodule = {name: "datahandlermodule", uimodule: false}
-
-#log Switch
+############################################################
 log = (arg) ->
     if allModules.debugmodule.modulesToDebug["datahandlermodule"]?  then console.log "[datahandlermodule]: " + arg
     return
 
-#region Internal Variables
-allLangStrings = null
+############################################################
+#region internalVariables
+import programLangStrings from "./programsLangfile"
+allLangStrings = programLangStrings
 staticProgramData = null
 programsOverview = null
 idToRunOverviews = {}
@@ -14,11 +15,12 @@ idToRuns = {}
 idToPrograms = {}
 #endregion
 
-##initialization function  -> is automatically being called!  ONLY RELY ON DOM AND VARIABLES!! NO PLUGINS NO OHTER INITIALIZATIONS!!
+############################################################
 datahandlermodule.initialize = () ->
     log "datahandlermodule.initialize"
     
-#region Internal Functions
+############################################################
+#region InternalFunctions
 createDeferredPromise = () ->
     deferred = {}
     promise = new Promise(
@@ -28,14 +30,12 @@ createDeferredPromise = () ->
     promise.resolve = deferred.resolve
     return promise
 
-
 getStaticProgramsObject = (staticId) ->
     staticId  = parseInt(staticId)
     log "getStaticProgramsObject"
     allStaticData = await datahandlermodule.getStaticProgramData()
     for data in allStaticData
         if data.programs_static_id == staticId then return data
-
 
 setProgramsOfStaticIdInactive = (staticId) ->
     staticId  = parseInt(staticId)
@@ -47,10 +47,12 @@ setProgramsOfStaticIdInactive = (staticId) ->
 
 #endregion
 
-#region Exposed Functions
-################################################################################
-# Functions To Set Data
-################################################################################
+############################################################
+#region exposedFunctions
+
+############################################################
+#region dataSetterFunctions
+############################################################
 datahandlermodule.setLangStrings = (data) ->
     log "datahandlermodule.setLangStrings"
     if allLangStrings? and typeof allLangStrings.resolve == "function"
@@ -94,12 +96,12 @@ datahandlermodule.setRunOverview = (data) ->
     
     idToRunOverviews[id] = data.runOverview
 
+#endregion
 
-################################################################################
-# Functions To Get Data
-################################################################################
+############################################################
+#region dataGetterFunctions
 datahandlermodule.getLangStrings = ->
-    log "datahandlermodule.assignLangStrings"
+    log "datahandlermodule.getLangStrings"
     if !allLangStrings?
         allLangStrings = createDeferredPromise()
     
@@ -152,9 +154,11 @@ datahandlermodule.getDynamicDataForProgram = (id) ->
     overview = await datahandlermodule.getProgramsOverview()
     for program in overview
         if program.programs_dynamic_id == id then return program
-################################################################################
-# Functions To Request Information
-################################################################################
+
+#endregion
+
+############################################################
+#region miscellaneous
 datahandlermodule.updateRunLabel = (runId, runLabel) ->
     log "datahandlermodule.updateRunLabel"
     data = 
@@ -322,10 +326,9 @@ datahandlermodule.setLanguageTextForKey = (key, text) ->
     datahandlermodule.dataChanged()
     return
 
-################################################################################
-# Miscellanneious
-################################################################################
+#endregion
 
+############################################################
 datahandlermodule.dataChanged = ->
     log "datahandlermodule.dataChangeNotification"
     allModules.pageheadermodule.setStateUnsavedChanges()

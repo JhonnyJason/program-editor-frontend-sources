@@ -1,20 +1,23 @@
 programversiontablemodule = {name: "programversiontablemodule", uimodule: true}
-
-#log Switch
+############################################################
 log = (arg) ->
     if allModules.debugmodule.modulesToDebug["programversiontablemodule"]?  then console.log "[programversiontablemodule]: " + arg
     return
+ostr = (o) -> JSON.stringify(o, null, 4)
+olog = (o) -> log "\n" + ostr(o)
 
-
+############################################################
 programVersionTableSection  = null
 
-##initialization function  -> is automatically being called!  ONLY RELY ON DOM AND VARIABLES!! NO PLUGINS NO OHTER INITIALIZATIONS!!
+############################################################
 programversiontablemodule.initialize = () ->
     log "programversiontablemodule.initialize"
     programVersionTableSection = document.getElementById("program-version-table-section")
     programversiontablemodule.buildTable()
+    return
 
-#region internal functions
+############################################################
+#region internalFunctions
 tableElementClick = (event) ->
     target = event.target
     id = target.getAttribute("programs-dynamic-id")    
@@ -28,7 +31,8 @@ tableElementClick = (event) ->
 
 #endregion
 
-#region Exposed Functions
+############################################################
+#region exposedFunctions
 programversiontablemodule.indicateCurrentChosenProgram = (id) ->
     log "programversiontablemodule.indicateCurrentChosenProgram"
     id = parseInt(id)
@@ -44,8 +48,13 @@ programversiontablemodule.buildTable = ->
     
     try
         programsOverview = await allModules.datahandlermodule.getProgramsOverview()
+        # log "received ProgramsOverview"
+        # olog programsOverview
         staticProgramData = await allModules.datahandlermodule.getStaticProgramData()
-        await allModules.datahandlermodule.getLangStrings()
+        # log "recevied StaticProgramData"
+        # olog staticProgramData
+        # await allModules.datahandlermodule.getLangStrings()
+        # log "returned from getting the langstrings ;-)"
     catch e
         log e
         return 

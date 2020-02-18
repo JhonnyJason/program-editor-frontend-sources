@@ -3,6 +3,7 @@ import appstatemodule from "./appstatemodule"
 import configmodule from "./configmodule"
 import controlboardmodule from "./controlboardmodule"
 import debugmodule from "./debugmodule"
+import datahandlermodule from "./datahandlermodule"
 import dynamiccontentmodule from "./dynamiccontentmodule"
 import keycommandmodule from "./keycommandmodule"
 import maincontentmodule from "./maincontentmodule"
@@ -18,6 +19,7 @@ Modules = {
     appstatemodule,
     configmodule,
     controlboardmodule,
+    datahandlermodule,
     debugmodule,
     dynamiccontentmodule,
     keycommandmodule,
